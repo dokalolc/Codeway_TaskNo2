@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Basic Calculator</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .calculator {
+        width: 300px;
+        margin: 50px auto;
+        border: 2px solid #ccc;
+        border-radius: 5px;
+        padding: 10px;
+    }
+    .screen {
+        width: calc(100% - 20px);
+        height: 50px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        text-align: right;
+        padding: 10px;
+        font-size: 20px;
+    }
+    .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 5px;
+    }
+    button {
+        padding: 10px;
+        font-size: 18px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+<div class="calculator">
+    <div class="screen" id="screen"></div>
+    <div class="buttons">
+        <button onclick="clearScreen()">C</button>
+        <button onclick="appendInput('7')">7</button>
+        <button onclick="appendInput('8')">8</button>
+        <button onclick="appendInput('9')">9</button>
+        <button onclick="appendInput('4')">4</button>
+        <button onclick="appendInput('5')">5</button>
+        <button onclick="appendInput('6')">6</button>
+        <button onclick="appendInput('1')">1</button>
+        <button onclick="appendInput('2')">2</button>
+        <button onclick="appendInput('3')">3</button>
+        <button onclick="appendInput('0')">0</button>
+        <button onclick="appendInput('.')">.</button>
+        <button onclick="calculate('+')">+</button>
+        <button onclick="calculate('-')">-</button>
+        <button onclick="calculate('*')">*</button>
+        <button onclick="calculate('/')">/</button>
+        <button onclick="getResult()">=</button>
+    </div>
+</div>
+
+<script>
+    let input = '';
+    const screen = document.getElementById('screen');
+
+    function appendInput(value) {
+        input += value;
+        screen.innerText = input;
+    }
+
+    function clearScreen() {
+        input = '';
+        screen.innerText = '';
+    }
+
+    function calculate(operator) {
+        if (input !== '' && !isNaN(input[input.length - 1])) {
+            input += operator;
+            screen.innerText = input;
+        }
+    }
+
+    function getResult() {
+        if (input !== '' && !isNaN(input[input.length - 1])) {
+            try {
+                input = eval(input).toString();
+                screen.innerText = input;
+            } catch (error) {
+                screen.innerText = 'Error';
+            }
+        }
+    }
+</script>
+
+</body>
+</html>
